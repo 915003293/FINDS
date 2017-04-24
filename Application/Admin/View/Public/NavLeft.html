@@ -1,0 +1,15 @@
+<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+    <style>
+        li.parent {
+            background-color: #fff;
+        }
+        li.parent .glyphicon-plus,li.parent .glyphicon-minus{
+            margin-left: -20px;;
+        }
+    </style>
+    <ul class="nav menu">
+        {$Nav}
+        <li role="presentation" class="divider"></li>
+        <li><a href="{:U('Admin/Login/OutLogin')}"><span class="glyphicon glyphicon-user"></span> 注销登录</a></li>
+    </ul>
+</div><!--/.sidebar-->

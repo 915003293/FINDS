@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <block name="title"><title>Find</title></block>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--CSS样式以及SCRIPT脚本-->
+    <include file="Public/Script" />
+</head>
+
+<body>
+<!--头部导航-->
+<include file="Public/NavTop" />
+
+<!--左侧导航-->
+<include file="Public/NavLeft" />
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">{$Postion}</li>
+        </ol>
+    </div>
+    {:tag('Base')}
+    <block name="right">
+
+    </block>
+</div>
+<!--底部Script脚本-->
+<include file="Public/ScriptBottom" />
+</body>
+
+</html>

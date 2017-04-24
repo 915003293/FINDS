@@ -1,0 +1,132 @@
+<extend name="Public/Base" />
+<block name="title"><title>Find-用户编辑</title></block>
+<block name="right">
+    </script>
+        <div class="row" style="margin-top:10px;">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body tabs">
+
+                        <ul class="nav nav-pills">
+                            <li class="active"><a href="#pilltab1" data-toggle="tab">基本信息</a></li>
+                            <li><a href="#pilltab2" data-toggle="tab">用户组</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="pilltab1">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">用户编辑</div>
+                                    <div class="panel-body">
+                                        <div class="col-md-6">
+                                            <form role="form" action="{:U('Admin/User/EditUser')}" method="post">
+                                                <input type="hidden" name="uid" value="{$UserData.uid}" />
+                                                <div class="form-group">
+                                                    <label>用户名</label>
+                                                    <input class="form-control" name="username" placeholder="Placeholder" value="{$UserData.username}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>当前密码<small>(不可逆)</small></label>
+                                                    <input type="text"  class="form-control " disabled value="{$UserData.password}" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>新密码</label>
+                                                    <input type="text" name="password" class="form-control" placeholder="不改密码留空即可" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>状态</label>
+                                                    <select name="status" class="form-control">
+                                                        <if condition="$UserData.status eq 1">
+                                                        <option value="1" selected>启用</option>
+                                                        <option value="0">禁止</option>
+                                                        <else/>
+                                                        <option value="0" selected>禁止</option>
+                                                        <option value="1">启用</option>
+                                                        </if>
+                                                    </select>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    $(function(){
+                                                        function each(){
+                                                            var Gids = '{$Gids}';
+                                                            var Arr = Gids.split(',');
+                                                            $("[name='gid[]']").each(function(i,e){
+                                                                if(Arr.indexOf($(e).val())!=-1){
+                                                                $(e).attr('checked',true);
+                                                            }
+                                                            });
+                                                        }
+                                                        each();
+                                                    })
+                                                </script>
+                                                <button type="submit" class="btn btn-primary">编辑</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pilltab2">
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">用户组编辑</div>
+                                    <div class="panel-body">
+                                        <div class="col-md-6">
+                                            <form  class="remove" role="form" action="{:U('Admin/User/RemoveUserGroup')}" method="post">
+                                                <input type="hidden" value="{$UserData.uid}" name ='uid' />
+                                                <div  class="form-group">
+                                                    <label>所属用户组</label>
+                                                    <div>
+                                                        <script type="text/javascript">
+                                                            var Group = {$GroupJson};
+                                                            var Gids = "{$Gids}";
+                                                            var Arr = Gids.split(',');
+                                                            $.each(Group, function (i,e) {
+                                                                for (i=0;i<Arr.length;i++){
+                                                                    if(e.id == Arr[i]){
+                                                                        document.write("<span class='label label-success'>"+ e.title+"<a onclick='remove(this)' data-id='"+ e.id+"'  style='color: red;position: relative; top:-4px;right: -3px;cursor: pointer;'>x</a></span>&nbsp;")
+                                                                    }
+                                                                }
+                                                            })
+                                                            function remove(t){
+                                                                layer.open({
+                                                                   type:0,
+                                                                    title:'询问',
+                                                                    content:'你确定进行删除操作吗？',
+                                                                    btn:['确定','取消'],
+                                                                    yes:function(){
+                                                                        var Gid = $(t).data('id');
+                                                                        $("form.remove").append("<input type='hidden' name='gid' value='"+Gid+"' />").submit();
+                                                                    },
+                                                                    btn2:function(){
+                                                                    }
+                                                                });
+                                                            }
+                                                        </script>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                                <form action="{:U('Admin/User/AddUserGroup')}" method="post" >
+                                                    <input type="hidden" value="{$UserData.uid}" name ='uid' />
+                                                    <div  class="form-group">
+                                                        <label>添加用户组</label>
+                                                        <div>
+                                                            <select name="gid" class="form-control">
+                                                                <volist name="Group" id="val">
+                                                                    <option value="{$val.id}">{$val.title}</option>&nbsp;
+                                                                </volist>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">添加</button>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+</block>

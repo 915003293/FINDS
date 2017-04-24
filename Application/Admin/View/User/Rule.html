@@ -1,0 +1,39 @@
+<extend name="Public/Base" />
+<block name="title"><title>用户管理</title></block>
+<block name="right">
+		<div class="row" style="margin-top:10px;">
+			<div class="col-xs-12">
+				<style>
+					.block{
+						background: #30a5ff;
+						color: #ffffff;
+						padding: 5px;
+						margin-bottom:5px;
+						border-radius: 5px;
+						cursor:pointer;
+					}
+					.blockban{
+						background-color: #FFD5D0;
+						color: #ffffff;
+						padding: 5px;
+						margin-bottom:5px;
+						border-radius: 5px;
+						cursor:pointer;
+					}
+					ul{
+						list-style: none;
+						padding: 0px;
+					}
+				</style>
+				<form  method="post">
+					<div style="margin-bottom:5px;">
+						<a  href="{:U('Admin/User/AddRule')}"  class="btn-success btn-sm ">新增</a>
+					</div>
+					<div >
+						{$Rule}
+					</div>
+				</form>
+			</div>
+			</div>
+	</div>
+</block>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="__PUBLIC__/Lib/layui/layui.js"></script>
+    <script src="__PUBLIC__/Lib/layui/lay/dest/layui.all.js"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Lib/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/Default/default.css">
+    <block name="seo">
+        <meta name="keywords" content="{$Site.key_word}">
+        <meta name="description" content="{$Site.description}"/>
+    </block>
+    <block name="title"><title>{$Site.title}</title></block>
+</head>
+<body style="background-color:#ededed;">
+<ul class="layui-nav "  lay-filter="">
+    <div class="layui-nav-item layui-float-left"><a href="#"><span style="font-size: 30px;">{$Site.title}</span></a></div>
+    <volist name="nav" id="val">
+        <if condition="$val.selected eq true">
+            <li class="layui-nav-item layui-this layui-float-right"><a href="{:U($val['link'])}">{$val.title}</a></li>
+        <else/>
+            <li class="layui-nav-item layui-float-right"><a href="{:U($val['link'])}">{$val.title}</a></li>
+        </if>
+    </volist>
+
+    <li class="layui-clear"></li>
+
+</ul>
+<div class="layui-center  layui-main" style="min-height: 630px;">
+    <block name="mian">
+
+    </block>
+</div>
+<div class="layui-clear"></div>
+<div class="layui-footer">{$Site.bottom_info}</div>
+</body>
+</html>

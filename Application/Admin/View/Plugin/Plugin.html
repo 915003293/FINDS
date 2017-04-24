@@ -1,0 +1,72 @@
+<extend name="Public/Base" />
+<block name="right">
+		<div class="row" style="margin-top:10px;">
+			<div class="col-xs-12">
+				<form  method="post">
+					<div style="margin-bottom:5px;">
+						<a  href="{:U('Admin/Plugin/Install')}"  class="btn-success btn-sm ">安装插件</a>
+					</div>
+					<div style="margin-top:8px;" >
+						<table class="table table-striped  text-center">
+							<thead>
+							<th class="text-center"><input name="Uid[]"  id="checkbox"  style="position: relative;top:2px;" type="checkbox" class="input" />ID</th>
+							<th class="text-center">插件标识</th>
+							<th class="text-center">插件名</th>
+							<th class="text-center">描述</th>
+							<th class="text-center">版本</th>
+							<th class="text-center">作者</th>
+							<th class="text-center">插件状态</th>
+							<th class="text-center">前台</th>
+							<th class="text-center">后台</th>
+							<th class="text-center">操作</th>
+							</thead>
+							<tbody>
+							<volist name="PluginList" id="val">
+								<tr>
+									<td>
+										<input class="checkbox1" name="id[]" value="{$val.id}" type="checkbox" class="input" />
+										{$val.id}
+									</td>
+									<td>{$val.sign}</td>
+									<td>{$val.title}</td>
+									<td>{$val.description}</td>
+									<td>{$val.version}</td>
+									<td>{$val.author}</td>
+									<td>
+										<if condition="$val.status eq 1">
+											<span class="label label-success">启用</span>
+											<else/>
+											<span class="label label-danger">禁用</span>
+										</if>
+									</td>
+									<td>
+										<if condition="$val.access eq 1">
+											<span class="label label-success">有</span>
+											<else/>
+											<span class="label label-danger">无</span>
+										</if>
+									</td>
+									<td>
+										<if condition="$val.admin eq 1">
+											<span class="label label-success">有</span>
+											<else/>
+											<span class="label label-danger">无</span>
+										</if>
+									</td>
+									<td>
+										<a href="{:U('Admin/Plugin/RemovePlugin',array('id'=>$val['id']))}" class="btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+										<if condition="$val.status eq 1">
+											<a href="{:U('Admin/Plugin/SetStatus',array('id'=>$val['id'],'status'=>0))}" class="btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span>禁用</a>
+											<else/>
+											<a href="{:U('Admin/Plugin/SetStatus',array('id'=>$val['id'],'status'=>1))}"  class="btn-success btn-xs"><span class="glyphicon glyphicon-remove"></span>启用</a>
+										</if>
+									</td>
+								</tr>
+							</volist>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+</block>

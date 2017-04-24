@@ -1,0 +1,89 @@
+<extend name="Public/Base" />
+<block name="title"><title>站点设置</title></block>
+<block name="right">
+    <div class="row">
+        <div style="margin-top:10px;" class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body tabs">
+
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#pilltab1" data-toggle="tab">基础设置</a></li>
+                        <li><a href="#pilltab2" data-toggle="tab">URL设置</a></li>
+                        <!--<li><a href="#pilltab3" data-toggle="tab">Tab 3</a></li>-->
+                    </ul>
+
+                    <div class="tab-content">
+                            <div class="tab-pane fade in active" id="pilltab1">
+                                <form action="{:U('Admin/System/EditSiteBaseInfo')}"  method="post">
+                                    <div class="form-group">
+                                        <label>站点名称</label>
+                                        <input class="form-control" name="title" value="{$SiteInfo.title}" placeholder="FIND">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>站点关键字</label>
+                                        <input class="form-control" name="key_word" value="{$SiteInfo.key_word}" placeholder="FIND,PHP程序,博客系统">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>站点描述</label>
+                                        <input class="form-control" name="description" value="{$SiteInfo.description}" placeholder="FIND是一款博客系统">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>底部信息</label>
+                                        <input class="form-control" name="bottom_info" value="{$SiteInfo.bottom_info}" placeholder="by:封建">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>统计代码</label>
+                                        <textarea class="form-control" name="count_code" rows="5" placeholder="请在这里输入统计代码">{$SiteInfo.count_code}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>禁止访问</label>
+                                        <div>
+                                            <if condition ="$SiteInfo.access eq 1">
+                                                <input type="checkbox" name="access" class="multi-switch"  checked  />
+                                            <else/>
+                                                <input type="checkbox" name="access" class="multi-switch"   />
+                                            </if>
+                                            <script type="text/javascript">
+                                                $(document).ready(function(){
+                                                    $('.multi-switch').multiSwitch();
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">编辑</button>
+                                </form>
+                            </div>
+                        <div class="tab-pane fade" id="pilltab2">
+                            <div class="form-group">
+                                <label>URL模式</label>
+                                <select class="form-control">
+                                    <option>PACH模式</option>
+                                    <option>兼容模式</option>
+                                    <option>URL重写模式</option>
+                                </select>
+                            </div>
+                            <div class="alert bg-primary" role="alert">
+                                <span class="glyphicon glyphicon-info-sign"></span> 普通模式 普通模式也就是传统的GET传参方式来指定当前访问的模块和操作，例如： http://localhost/?m=home&c=user&a=login&var=value
+
+                                m参数表示模块，c参数表示控制器，a参数表示操作（当然这些参数都是可以配置的），后面的表示其他GET参数。
+
+                                如果默认的变量设置和你的应用变量有冲突的话，你需要重新设置系统配置。 URL:http://localhost/?m=home&c=user&a=login&var=value <a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+                            <div class="alert bg-success" role="alert">
+                                <span class="glyphicon glyphicon-check"></span> PACH模式 PATHINFO模式是系统的默认URL模式，提供了最好的SEO支持，系统内部已经做了环境的兼容处理，所以能够支持大多数的主机环境。URL:http://localhost/index.php/home/user/login/var/value/<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+                            <div class="alert bg-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign"></span> URL重写模式 REWRITE模式是在PATHINFO模式的基础上添加了重写规则的支持，可以去掉URL地址里面的入口文件index.php，但是需要额外配置WEB服务器的重写规则。 URL:http://localhost/index.php/home-user-login-var-value<a href="#" class="pull-right"><span class="glyphicon glyphicon-remove"></span></a>
+                            </div>
+                            <button type="submit" class="btn btn-primary">编辑</button>
+                        </div>
+                        <!--<div class="tab-pane fade" id="pilltab3">-->
+                            <!--<h4>Tab 3</h4>-->
+                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget rutrum purus. Donec hendrerit ante ac metus sagittis elementum. Mauris feugiat nisl sit amet neque luctus, a tincidunt odio auctor. </p>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div><!--/.panel-->
+        </div>
+    </div>
+</block>

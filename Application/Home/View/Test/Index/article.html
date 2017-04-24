@@ -1,0 +1,16 @@
+<extend name="Public/base" />
+<block name="mian" >
+    <div class="layui-float-left layui-box layui-bg-white" >
+            <div class="layui-article ">
+                <header>
+                    <h6 class="title"><a href="{:U('Home/Index/article',array('aid'=>$article['aid']))}">{$article.title}</a></h6>
+                </header>
+                <div class="font-color-balck">{$article.content}</div>
+                <footer class="article_info">
+                    <span> <i class="layui-icon">&#xe612;</i> {$article.username}</span>
+                    <span> <i class="layui-icon">&#xe643;</i> {$article.posts}</span>
+                    <span> <i class="layui-icon">&#xe60e;</i> {$article.create_time|date='Y-m-d H:i:s',###}</span>
+                </footer>
+            </div>
+    </div>
+</block>

@@ -1,0 +1,305 @@
+<extend name="Public/Base" />
+<block name="title"><title>分类管理</title></block>
+<block name="right">
+    <div style="margin-top:10px;">
+        <div style="margin-bottom: 10px;"><a href="#" onclick="AddType(this)" class="btn-success btn-sm ">新增分类</a></div>
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead >
+                <tr>
+                    <th>分类ID</th>
+                    <th>排序</th>
+                    <th>分类名</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <if condition="empty($Type)">
+                    <tr >
+                        <th colspan="8">木有分类啦,是不是被你吃掉了！</th>
+                    </tr>
+                <else/>
+                    <volist name="Type" id="val">
+                        <tr>
+                            <td style="width:70px;">{$val.tid}</td>
+                            <td style="width:70px;">{$val.orderby}</td>
+                            <td>
+                                <a href="#" data-id="{$val.tid}" data-layer="1" onclick="GetSubType(this)" class="glyphicon glyphicon-plus"></a>&nbsp;{$val.title}
+                            </td>
+                            <td style="width:70px;">
+                                <if condition="$val.status eq 1">
+                                    <span class="label label-success">启用</span>
+                                    <else/>
+                                    <span class="label label-danger">禁用</span>
+                                </if>
+                            </td>
+                            <td>
+                                <a class="label label-warning" onclick='EditType(this,"{$val.tid}")'>编辑</a>
+                                <a class="label label-danger" onclick='RemoveType(this,"{$val.tid}","{$val.title}")'>删除</a>
+                            </td>
+                        </tr>
+                    </volist>
+                </if>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div class="col-xs-12 text-right" style="margin-top:-30px;padding: 0px;">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {$Page}
+                    </ul>
+                </nav>
+        </div>
+    </div>
+    <script type="text/javascript">
+        function RemoveType(t,tid,title){
+            layer.open({
+                type:0,
+                title:'提示',
+                content:'你确定要删除 '+title+' 分类吗？',
+                icon:0,
+                btn:['删除','取消'],
+                offset: '100px',
+                yes: function () {
+                    var url = "{:U('Admin/Type/RemoveType')}"
+                    index = layer.load(3 );
+                    $.ajax({
+                       type: "POST",
+                       url:url,
+                       data:'tid='+tid,
+                       dataType:'json',
+                       error:function(data){
+                           layer.close(index);
+                           if(data.info!==''){
+                               layer.msg(data.info);
+                           }else{
+                               layer.msg("很抱歉,请重试，可能是网络不通畅！");
+                           }
+                       },
+                        success:function(data){
+                            layer.close(index);
+                            if(data.status==0){
+                                layer.msg(data.info);
+                            }else{
+                                layer.msg(data.info);
+                                $(t).parents('td').parents('tr').remove();
+                            }
+                        }
+                    });
+                },
+            })
+        }
+        function AddType(t){
+            var url = "{:U('Admin/Type/TypeAdd')}"
+            var handle = layer.load(3);
+            $.ajax({
+                url:url,
+                type:"GET",
+                dataType:'text',
+                error:function(){
+                    layer.close(handle);
+                    layer.msg("很抱歉，您的网络有问题！");
+                },success(data){
+                    var html = data;
+                    layer.close(handle);
+                    console.log(html);
+                    layer.open({
+                        type:1,
+                        title:'新增分类',
+                        content:html,
+                        btn:['新增','取消'],
+                        icon:0,
+                        maxmin:true,
+                        offset:'95px',
+                        area: ['560px','350px'],
+                        yes:function(){
+                            var typeName = $(".typeTitle").val();
+                            var orderby = $(".orderby").val();
+                            var pid = $(".pid").val();
+                            if(!pid){
+                                layer.msg("请选择一个父分类");
+                                return false;
+                            }
+                            if(!orderby){
+                                layer.msg("拜托，就算不输入排序也不要留空好吗？");
+                                return false;
+                            }
+                            if(!typeName){
+                                layer.msg("请输入分类名称");
+                                return false;
+                            }
+                            index = layer.load(3);
+                            $.ajax({
+                                url:url,
+                                type:'POST',
+                                dataType:'JSON',
+                                data:"title="+typeName+"&pid="+pid+"&orderby="+orderby,
+                                success:function(data){
+                                    layer.close(index);
+                                    if(data.status==1){
+                                        layer.msg(data.info);
+                                        setTimeout(function(){location.reload()},"1000");
+                                    }else{
+                                        layer.msg(data.info);
+                                    }
+                                },
+                                error:function(data){
+                                    layer.close(index);
+                                    layer.msg("很抱歉，您的网络有问题，请重新尝试！");
+                                }
+                            })
+                        }
+                    })
+
+                }
+
+            });
+
+
+        }
+        function EditType(t,id){
+                var index = layer.load(3);
+                var url = "{:U('Admin/Type/EditType')}";
+                $.ajax({
+                    url:url,
+                    type:"GET",
+                    dataType:'JSON',
+                    data:"id="+id+'&r='+Math.random(),
+                    error:function(data){
+                        layer.close(index);
+                        layer.msg("很抱歉，可能是您的网络问题，请重试！");
+                    },
+                    success:function(data){
+                        layer.close(index);
+                        if(data.status == 1){
+                            layer.open({
+                                type:1,
+                                title:'编辑',
+                                content:data.info,
+                                icon:0,
+                                btn:['编辑','取消'],
+                                offset:'100px',
+                                area: ['560px','410px'],
+                                yes:function(){
+                                    var typeName = $(".typeTitle").val();
+                                    var orderby = $(".orderby").val();
+                                    var pid = $(".pid").val();
+                                    var tid = $(".tid").val();
+
+                                    if($('.switch-content').hasClass('active')){
+                                        access = 1;
+                                    }else{
+                                        access = 0;
+                                    }
+                                    if(!pid){
+                                        layer.msg("请选择一个父分类");
+                                        return false;
+                                    }
+                                    if(!orderby){
+                                        layer.msg("拜托，就算不输入排序也不要留空好吗？");
+                                        return false;
+                                    }
+                                    if(!typeName){
+                                        layer.msg("请输入分类名称");
+                                        return false;
+                                    }
+                                    index = layer.load(3);
+                                    $.ajax({
+                                        url:url,
+                                        type:'POST',
+                                        dataType:'JSON',
+                                        data:"title="+typeName+"&pid="+pid+"&orderby="+orderby+"&tid="+tid+"&status="+access,
+                                        success:function(data){
+                                            layer.close(index);
+                                            if(data.status==1){
+                                                layer.msg(data.info);
+                                                setTimeout(function(){location.reload()},"1000");
+                                            }else{
+                                                layer.msg(data.info);
+                                            }
+                                        },
+                                        error:function(data){
+                                            layer.close(index);
+                                            layer.msg("很抱歉，您的网络有问题，请重新尝试！");
+                                        }
+                                    })
+                                }
+
+                            })
+                        }else{
+                            layer.msg(data.info)
+                        }
+                    }
+                })
+        }
+        function CloseType(id){
+            var select = "["+"pid='"+id+"']";
+            $(select).each(function(i,e){
+                var ids = $(e).data('id');
+                CloseType(ids);
+            })
+            $(select).removeClass("glyphicon-minus").addClass("glyphicon-plus");
+            $(select).parents("td").parents('tr').fadeOut(100);
+        }
+        function OpenType(id){
+            var select = "["+"pid='"+id+"']";
+            $(select).parents("td").parents('tr').fadeIn(100);
+        }
+
+        function IsChild(id){
+            var select = "["+"pid='"+id+"']";
+            if($(select).length == 0){
+                return true;
+            }else{
+                return false;
+            };
+        }
+        function GetSubType(t){
+            var isload = $(t).data('isload');
+            var url = "{:U('Admin/Type/Type')}";
+            var id = $(t).data('id');
+            var layer1 = $(t).data('layer');
+            if(IsChild(id)){
+                //未加载过的
+                var index = layer.load(3);
+                $.ajax({
+                    url:url,
+                    dataType:'json',
+                    data:"id="+ id+'&layer='+layer1,
+                    error:function(data){
+                        layer.close(index);
+                        layer.msg("很抱歉,请重试，可能是网络不通畅！");
+                    },
+                    success: function (data){
+                        layer.close(index);
+                        if(data.status == 0){
+                            layer.msg(data.info);
+                            return false;
+                        }
+                        if(data.status == 1){
+                            if(data.info!=''){
+                                $(t).parents('td').parents('tr').after(data.info);
+                                $(t).removeClass("glyphicon-plus").addClass("glyphicon-minus");
+                            }else{
+                                layer.msg('这个分类没有子分类')
+                            }
+                        }
+                    }
+                });
+            }else{
+                if($(t).hasClass('glyphicon-minus')){
+                    $(t).removeClass("glyphicon-minus").addClass("glyphicon-plus");
+                    CloseType(id);
+                }else{
+                    $(t).removeClass("glyphicon-plus").addClass("glyphicon-minus");
+                    OpenType(id);
+                }
+            }
+        }
+    </script>
+
+
+
+</block>

@@ -1,0 +1,91 @@
+<include file="header"/>
+    <div class="auth">
+            <form class="layui-form layui-form-pane" action="{:U('Install/Install/install')}" id="frompost" method="post">
+                <div class="layui-elem-quote" style="margin-top: 20px;">数据库信息</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">服务器</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="dbhost" id="dbhost" value="127.0.0.1" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">端口</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="dbport" id="dbport" value="3306" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="dbuser" id="dbuser" value="root" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="dbpwd" id="dbpwd" class="layui-input" onblur="TestDbPwd()">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">数据库名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="dbname" id="dbname" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">表前缀</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="dbprefix" id="dbprefix" value="find_"  class="layui-input">
+                    </div>
+                </div>
+                <!--<div class="layui-elem-quote" style="margin-top: 20px;">网站配置</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">网站名称</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" name="title" id="title" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">关键词</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" name="keywords" id="keywords" value="" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">描述</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" name="content" id="content" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-elem-quote" style="margin-top: 20px;">管理员信息</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">管理员帐号</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="text" name="username" id="username" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">邮箱</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="email" name="email" id="email" value="" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">密码</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="password" name="password" id="password" value="" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="layui-form-item">-->
+                    <!--<label class="layui-form-label">重复密码</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<input type="password" name="password1" id="password1" class="layui-input">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
+                    <a class="install" style="" href="{:U('Install/Install/install',array('step'=>2))}">上一步</a>
+                    <button style="border: none;position:relative;top:-1px;cursor: pointer" class="install">安装</button>
+                </div>
+            </form>
+    </div>
+<include file="footer"/>

@@ -1,0 +1,28 @@
+<volist name="Type" id="val">
+    <tr>
+        <td style="width:70px;">
+            {$val.tid}
+        </td>
+        <td>
+            {$val.orderby}</td>
+        <td>
+            <?php
+                for($i=1;$i<$Layer;$i++){
+                    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
+                }
+            ?>
+            <a href="#" data-id="{$val.tid}"  data-layer="{$Layer}" data-isload="1"  pid="{$pid}"   onclick="GetSubType(this)" class="glyphicon glyphicon-plus"></a>&nbsp;{$val.title}
+        </td>
+        <td style="width:70px;">
+            <if condition="$val.status eq 1">
+                <span class="label label-success">启用</span>
+                <else/>
+                <span class="label label-danger">禁用</span>
+            </if>
+        </td>
+        <td>
+            <a class="label label-warning" onclick='EditType(this,"{$val.tid}")'>编辑</a>
+            <a class="label label-danger" onclick='RemoveType(this,"{$val.tid}","{$val.title}")'>删除</a>
+        </td>
+    </tr>
+</volist>

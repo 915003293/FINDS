@@ -1,0 +1,60 @@
+<extend name="Public/Base" />
+<block name="title"><title>文章管理</title></block>
+<block name="right">
+    <div style="margin-top:10px;">
+        <div style="margin-bottom: 10px;"><a href="{:U('Admin/Article/AddArticle')}"  class="btn-success btn-sm ">发布文章</a></div>
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead >
+                <tr>
+                    <th>文章ID</th>
+                    <th>标题</th>
+                    <th>所属分类</th>
+                    <th>显示</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <if condition="empty($Article)">
+                    <tr >
+                        <th colspan="8">木有分类啦,是不是被你吃掉了！</th>
+                    </tr>
+                <else/>
+                    <volist name="Article" id="val">
+                        <tr>
+                            <td style="width:70px;">{$val.aid}</td>
+                            <td>
+                                <a href="#"  onclick="Switch('{$val.aid}',this)" class="glyphicon glyphicon-plus"></a>&nbsp;{$val.title}
+                            </td>
+                            <td style="width:150px;" >{$val.type_title}</td>
+                            <td style="width:70px;">
+                                <if condition="$val.status eq 1">
+                                    <span class="label label-success">启用</span>
+                                    <else/>
+                                    <span class="label label-danger">禁用</span>
+                                </if>
+                            </td>
+                            <td>
+                                <a class="label label-warning" href="{:U('Admin/Article/EditArticle',array('aid'=>$val['aid']))}">编辑</a>
+                                <a class="label label-danger" href="{:U('Admin/Article/RemoveArticle',array('aid'=>$val['aid']))}" >删除</a>
+                            </td>
+                        </tr>
+                        <tr class='article {$val.aid}' style="display: none"><td colspan="8">{$val.content}</td></tr>
+                    </volist>
+                </if>
+                </tbody>
+            </table>
+        </div>
+        <script type="text/javascript">
+            function Switch(id,t){
+                if($(t).hasClass('glyphicon-minus')){
+                    $(t).removeClass("glyphicon-minus").addClass("glyphicon-plus");
+                }else{
+                    $(t).removeClass("glyphicon-plus").addClass("glyphicon-minus");
+                }
+                var select = '.article.'+id;
+                $(select).fadeToggle();
+            }
+        </script>
+    </div>
+</block>

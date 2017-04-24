@@ -1,0 +1,61 @@
+<script>
+    $('#calendar').datepicker({
+    });
+
+    !function ($) {
+        $(document).on("click","ul.nav li.parent > a > span.icon", function(){
+            $(this).find('em:first').toggleClass("glyphicon-minus");
+        });
+        $(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
+    }(window.jQuery);
+
+    $(window).on('resize', function () {
+        if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
+    })
+    $(window).on('resize', function () {
+        if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
+    })
+</script>
+<script type="text/javascript">
+    $(function () {
+        var ing = false;
+        var url = '__SELF__'
+        $("#Add").click(function(){
+            window.location = "{:U('Admin/User/AddUser')}";
+        });
+        $('#checkbox').click(function () {
+            if(ing){
+                $(".checkbox1").prop('checked',false);
+                ing = false;
+            }else{
+                $(".checkbox1").prop('checked',true);
+                ing = true;
+            }
+        });
+        $(".block").click(function (event) {
+            if($(this).children("i").eq(0).hasClass("glyphicon-minus")){
+                $(this).children("i").eq(0).removeClass('glyphicon-minus').addClass("glyphicon-plus");
+                $(this).siblings("ol").slideToggle()
+
+            }else{
+                $(this).children("i").eq(0).removeClass('glyphicon-plus').addClass("glyphicon-minus");
+                $(this).siblings("ol").slideToggle()
+            }
+            event.stopPropagation();
+        });
+        $('.block a').click(function(e){
+            e.stopPropagation();
+        });
+        function navinit(){
+            $("#sidebar-collapse .children.collapse.in").removeClass('in');
+            $("#sidebar-collapse .glyphicon-minus").removeClass('glyphicon-minus');
+            $("#sidebar-collapse .children.collapse li a").each(function(i,e){
+                if($(e).attr('href') == url){
+
+                    console.log($(e).parents('ul').addClass('in').siblings('a').children('.icon.pull-right').addClass('collapsed').children('.glyphicon.glyphicon-s').addClass('glyphicon-minus'));
+                }
+            });
+        }
+        navinit();
+    })
+</script>

@@ -1,0 +1,23 @@
+<extend name="Public/base" />
+<block name="mian" >
+    <div class="layui-float-left layui-box layui-bg-white" >
+        <volist name="article.Data" id="val">
+            <div class="layui-article ">
+                <header>
+                    <h6 class="title"><a href="{:U('Home/Index/article',array('aid'=>$val['aid']))}">{$val.title}</a></h6>
+                </header>
+                <div class="font-color-balck" style="height: 155px;overflow: hidden;">{$val.content}</div>
+                <footer class="article_info">
+                    <span> <i class="layui-icon">&#xe612;</i> {$val.username}</span>
+                    <span> <i class="layui-icon">&#xe643;</i> {$val.posts}</span>
+                    <span> <i class="layui-icon">&#xe60e;</i> {$val.create_time|date='Y-m-d H:i:s',###}</span>
+                </footer>
+            </div>
+        </volist>
+        <div>
+            <ul class="pagination">
+                {$article.Page}
+            </ul>
+        </div>
+    </div>
+</block>

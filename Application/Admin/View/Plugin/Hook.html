@@ -1,0 +1,38 @@
+<extend name="Public/Base" />
+<block name="right">
+		<div class="row" style="margin-top:10px;">
+			<div class="col-xs-12">
+				<form  method="post">
+					<div style="margin-top:8px;" >
+						<table class="table table-striped  text-center">
+							<thead>
+							<th class="text-center"><input name="Uid[]"  id="checkbox"  style="position: relative;top:2px;" type="checkbox" class="input" />ID</th>
+							<th class="text-center">钩子标识</th>
+							<th class="text-center">钩子类型</th>
+							<th class="text-center">钩子描述</th>
+							<th class="text-center">挂钩插件</th>
+							</thead>
+							<tbody>
+							<volist name="HookList" id="val">
+								<tr>
+									<td>
+										<input class="checkbox1" name="id[]" value="{$val.id}" type="checkbox" class="input" />
+										{$val.id}
+									</td>
+									<td>{$val.name}</td>
+									<if condition="$val.type eq 1">
+										<td>视图</td>
+										<else/>
+										<td>控制器</td>
+									</if>
+									<td>{$val.description}</td>
+									<td>{$val.plugin}</td>
+								</tr>
+							</volist>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+</block>

@@ -1,0 +1,55 @@
+<include file="Public/Header"/>
+<main class="auto">
+    <!-- 文章开始 !-->
+    <article class="left">
+        <volist name="article.Data" id="val">
+            <article class="box">
+                <header>
+                    <h2><a href="">{$val.title}</a></h2>
+                    <div>作者：{$val.uid} 2017.2.16</div>
+                </header>
+                <if condition="$val.img neq ''">
+                    <p class="img">
+                        <a href=""><img width="580px" src='{$val.img}' /></a>
+                    </p>
+                </if>
+                <div style="max-height: 200px; overflow: hidden">
+                    {$val.content}
+                </div>
+                <p><a href="{:U('Home/Index/article',array('aid'=>$val['aid']))}"><span style="margin-top:20px;"  class="block bg_red">开始阅读</span></a></p>
+                <footer>
+                    <img src="__PUBLIC__/Home/Image/Ico/Label.png" />
+                    <span class="block_mini bg_orange" ><a href="#">干货分享</a></span>
+                    <span class="block_mini bg_green" ><a href="#">软件逆向</a></span>
+                    <span class="block_mini bg_red" ><a href="#">随笔</a></span>
+                </footer>
+            </article>
+        </volist>
+        <!-- 文章结束 !-->
+        <ul class="page">
+            <articlesPage id="1"></articlesPage>
+        </ul>
+    </article>
+    <article class="right">
+        <!-- 下级分类开始 !-->
+        <article>
+            <header>
+               <h3>子分类</h3>
+            </header>
+            <classify pid="0">
+                <span class="block bg_blue" ><a href="{:U('Home/Index/showClassify',array('tid'=>$val['tid']))}">{$val.title}</a></span>
+            </classify>
+        </article>
+        <!-- 下级分类结束 !-->
+
+        <!-- 热点文章开始 !-->
+        <article class="box">
+            <header><h3>热点文章</h3></header>
+            <ul class="articles">
+
+            </ul>
+        </article>
+        <!-- 热点文章结束 !-->
+    </article>
+</main>
+<include file="Public/Footer"/>

@@ -1,0 +1,67 @@
+<extend name="Public/Base" />
+<block name="title"><title>Find-节点编辑</title></block>
+<block name="right">
+        <div class="row" style="margin-top:10px;">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">节点编辑</div>
+                    <div class="panel-body">
+                        <script type="text/javascript">
+                            function OpenIcon(t){
+                                layer.open({
+                                    type:2,
+                                    title:'ICON图标',
+                                    area: ['690px', '700px'],
+                                    content: "{:U('Admin/User/Icon')}"
+
+                                });
+                            }
+                        </script>
+                        <div class="col-md-6">
+                            <form role="form" action="{:U('Admin/User/EditRule')}" method="post">
+                                <input type="hidden" name="id" value="{$Rule.id}" />
+                                <div class="form-group">
+                                    <label>节点名称</label>
+                                    <input class="form-control" name="title" placeholder="节点名称" value="{$Rule.title}">
+                                </div>
+                                <div class="form-group">
+                                    <label>节点链接</label>
+                                    <input class="form-control" name="name" placeholder="格式:模块/控制器/方法" value="{$Rule.name}">
+                                </div>
+                                <div class="form-group">
+                                    <label>节点图标</label>
+                                    <input class="form-control" name="icon" value="{$Rule.icon}" placeholder="icon类名">
+                                </div>
+                                <div class="form-group">
+                                    <label>排序<small>(越大越靠前)</small></label>
+                                    <input class="form-control" name="orderby"  value="{$Rule.orderby}" placeholder="默认1" >
+                                </div>
+                                <div class="form-group">
+                                    <label>附加条件</label>
+                                    <input class="form-control" name="condition" placeholder="根据需要填写！可以留空" value="{$Rule.condition}">
+                                </div>
+                                <div class="form-group">
+                                    <label>状态</label>
+                                    <select name="status" class="form-control">
+                                        <if condition="$Rule.status eq 1">
+                                            <option value="1" selected>启用</option>
+                                            <option value="0">禁止</option>
+                                        <else/>
+                                            <option value="0" selected>禁止</option>
+                                            <option value="1">启用</option>
+                                        </if>
+                                    </select>
+                                </div>
+                                <!--<div class="form-group">-->
+                                    <!--<label>Text area</label>-->
+                                    <!--<textarea class="form-control" rows="3"></textarea>-->
+                                <!--</div>-->
+                                <button type="submit" class="btn btn-primary">编辑</button>
+                                <button type="button"  onclick="OpenIcon(this)" class="btn btn-primary">查看ICON图标</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

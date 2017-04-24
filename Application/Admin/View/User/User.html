@@ -1,0 +1,93 @@
+<extend name="Public/Base" />
+<block name="title"><title>用户管理</title></block>
+<block name="right">
+		<div class="row" style="margin-top:10px;">
+			<div class="col-xs-12">
+				<form action="{:U('Admin/User/Handle')}" method="post">
+					<div style="margin-bottom:5px;">
+						<button type="button" id="Add"  class="btn-success btn-sm ">新增</button>
+						<button onclick="Post('Remove');" type="button" id="Remove" name="Remove" class="btn-danger btn-sm">删除</button>
+						<button onclick="Post('Ban');" type="button" id="Ban"  name="Ban" class="btn-warning btn-sm">封禁</button>
+						<button onclick="Post('UnBan');" type="button" id="UnBan" name="UnBan" class="btn-primary btn-sm">启用</button>
+					</div>
+					<table class="table table-striped  text-center">
+						<thead>
+						<th class="text-center"><input name="Uid[]"  id="checkbox"  style="position: relative;top:2px;" type="checkbox" class="input" />ID</th>
+						<th class="text-center">用户名</th>
+						<th class="text-center">用户组</th>
+						<th class="text-center">注册时间</th>
+						<th class="text-center">上次登录</th>
+						<th class="text-center">ip</th>
+						<th class="text-center">状态</th>
+						<th class="text-center">操作</th>
+						</thead>
+						<tbody>
+							<volist name="UserData" id="val">
+								<tr>
+									<td>
+										<input class="checkbox1" name="Uid[]" value="{$val.uid}" type="checkbox" class="input" />
+										{$val.uid}
+									</td>
+									<td>{$val.username}</td>
+									<td>
+										<empty name="val['group']">
+											<span class="label label-danger">无</span>
+										<else/>
+											<volist name="val['group']"  id="val2" >
+												<span class="label label-success">{$val2.title}</span>&nbsp;
+											</volist>
+										</empty>
+									</td>
+									<td>{$val.regdate|date="Y-m-d H:i:s",###}</td>
+									<td>{$val.enddate|date="Y-m-d H:i:s",###}</td>
+									<td>{$val.ip}</td>
+									<td>
+										<if condition="$val.status eq 0">
+											<span class="label label-success">启用</span>
+										<else/>
+											<span class="label label-danger">禁用</span>
+										</if>
+									</td>
+									<td>
+										<a href="{:U('Admin/User/EditUser',array('Uid'=>$val['uid']))}" class="btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>编辑</a>
+										<a href="{:U('Admin/User/Handle',array('Uid'=>$val['uid'],'Type'=>'Remove'))}" class="btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>删除</a>
+										<if condition="$val.status eq 0">
+											<a href="{:U('Admin/User/Handle',array('Uid'=>$val['uid'],'Type'=>'EditIng','Ing'=>1))}" class="btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span>封禁</a>
+										<else/>
+											<a href="{:U('Admin/User/Handle',array('Uid'=>$val['uid'],'Type'=>'EditIng','Ing'=>0))}"  class="btn-success btn-xs"><span class="glyphicon glyphicon-remove"></span>启用</a>
+										</if>
+									</td>
+								</tr>
+							</volist>
+						</tbody>
+					</table>
+				</form>
+			</div>
+				<div class="col-xs-12 text-right" style="margin-top:-30px;padding: 0px;">
+					<nav aria-label="Page navigation">
+						<ul class="pagination">
+							{$Page}
+
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+	<script type="text/javascript">
+		function Post(type){
+			switch (type){
+				case 'Remove':
+					$('form').append("<input type='hidden' name='Type' value='Remove'/>").submit();
+					break;
+				case 'Ban':
+					$('form').append("<input type='hidden' name='Type' value='EditIng'/><input type='hidden' name='Ing' value='1' />").submit();
+					break;
+				case 'UnBan':
+					$('form').append("<input type='hidden' name='Type' value='EditIng'/><input type='hidden' name='Ing' value='0' />").submit();
+					break;
+				default:
+					alert('没有这种操作方式');
+			}
+		}
+	</script>
+</block>

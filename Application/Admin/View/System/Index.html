@@ -1,0 +1,59 @@
+<extend name="Public/Base" />
+<block name="title"><title>用户管理</title></block>
+<block name="right">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>仪表盘</h2>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-blue">
+                <div class="panel-heading dark-overlay">系统信息</div>
+                <div class="panel-body">
+                    <p>Find版本：{$Think.config.FIND_VERSION}</p>
+                    <p>THINKPHP版本：{$Think.THINK_VERSION }</p>
+                    <p>PHP版本：<?php echo PHP_VERSION; ?></p>
+                    <p>MYSQL版本：<?php echo mysql_get_server_info() ?></p>
+                    <p>操作系统：<?php echo PHP_OS ?></p>
+                    <p>运行环境：<?php echo $_SERVER['SERVER_SOFTWARE']; ?></p>
+                    <p>文件上传：<?php echo ini_get('file_uploads') ? '已开启' : '未开启' ;  ?></p>
+                    <p>上传限制：<?php echo ini_get('upload_max_filesize');?></p>
+                    <p>表单限制：<?php echo ini_get('post_max_size');?></p>
+                    <p>内存限制：<?php echo ini_get('memory_limit');?></p>
+                    <p>执行时间限制：<?php echo ini_get('max_execution_time'),'秒';?></p>
+                    <p>GD库：<?php echo function_exists('imagecreate')? '已开启' : '未开启' ; ?></p>
+                </div>
+            </div>
+        </div><!--/.col-->
+
+
+        <!--<div class="col-md-6">-->
+            <!--<div class="panel panel-teal">-->
+                <!--<div class="panel-heading dark-overlay">Teal Panel</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut ante in sapien blandit luctus sed ut lacus. Phasellus urna est, faucibus nec ultrices placerat, feugiat et ligula. Donec vestibulum magna a dui pharetra molestie. Fusce et dui urna.</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>&lt;!&ndash;/.col&ndash;&gt;-->
+
+        <!--<div class="col-md-6">-->
+            <!--<div class="panel panel-orange">-->
+                <!--<div class="panel-heading dark-overlay">Orange Panel</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut ante in sapien blandit luctus sed ut lacus. Phasellus urna est, faucibus nec ultrices placerat, feugiat et ligula. Donec vestibulum magna a dui pharetra molestie. Fusce et dui urna.</p>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>&lt;!&ndash;/.col&ndash;&gt;-->
+
+        <div class="col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading dark-overlay">关于作者</div>
+                <div class="panel-body">
+                    <p>FengJian</p>
+                    <p>如果您在使用过程中发现BUG，请及时与我联系，谢谢！</p>
+                    <p>联系邮箱:915003293@qq.com</p>
+                </div>
+            </div>
+        </div><!--/.col-->
+    </div>
+</block>

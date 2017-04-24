@@ -1,0 +1,66 @@
+<include file="header"/>
+    <div class="auth">
+        <table>
+            <thead>
+                <tr>
+                    <td>环境监测</td>
+                    <td>推荐配置</td>
+                    <td>最低要求</td>
+                    <td>当前配置</td>
+                    <td>达标</td>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="info1" id="val" >
+                    <tr>
+                        <td>{$val.name}</td>
+                        <td>{$val.excellent}</td>
+                        <td>{$val.least}</td>
+                        <td>{$val.now}</td>
+                        <td>
+                            <if condition="$val.yes eq yes ">
+                                <img style="position: relative;top:3px;" src="__PUBLIC__/Install/img/ok.png" />
+                             <else/>
+                                    <img style="position: relative;top:3px;" src="__PUBLIC__/Install/img/error.png" />
+                            </if>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+        <table>
+            <thead>
+            <tr>
+                <td>目录与文件权限</td>
+                <td>写入</td>
+                <td>读取</td>
+            </tr>
+            </thead>
+            <tbody>
+                <volist name="info2" id="val" >
+                    <tr>
+                        <td>{$val.name}</td>
+                        <td>
+                            <if condition="$val.write eq true">
+                                <img style="position: relative;top:3px;" src="__PUBLIC__/Install/img/ok.png" />
+                            <else/>
+                                <img style="position: relative;top:3px;" src="__PUBLIC__/Install/img/error.png" />
+                            </if>
+                        </td>
+                        <td>
+                            <if condition="$val.read eq true">
+                                <img style="position: relative;top:3px;" src="__PUBLIC__/Install/img/ok.png" />
+                                <else/>
+                                <img style="position: relative;top:3px;" src="__PUBLIC__/Install/img/error.png" />
+                            </if>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+        <div style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
+            <a class="install" style="" href="{:U('Install/Install/install',array('step'=>1))}">上一步</a>
+            <a class="install" style="" href="{:U('Install/Install/install',array('step'=>3))}">下一步</a>
+        </div>
+    </div>
+<include file="footer"/>
